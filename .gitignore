@@ -1,0 +1,22 @@
+/target/
+**/*.rs.bk
+
+# Local config and outputs
+*.png
+*.svg
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Coverage
+coverage/
