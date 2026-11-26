@@ -226,17 +226,6 @@ fn build_svg(
             }
             ChromeStyle::None => {}
         }
-        let _ = write!(
-            svg,
-            "<text x=\"{}\" y=\"{}\" dominant-baseline=\"middle\" font-family=\"Inter, SF Pro Display, Segoe UI, sans-serif\" font-size=\"12\" fill=\"{}\">Terminal</text>\
-             <text x=\"{}\" y=\"{}\" text-anchor=\"end\" dominant-baseline=\"middle\" font-family=\"Inter, SF Pro Display, Segoe UI, sans-serif\" font-size=\"10\" font-weight=\"600\" letter-spacing=\"1.6\" fill=\"{}\">PRISM</text>",
-            x + 96,
-            y + chrome_height / 2,
-            theme.muted,
-            right - 24,
-            y + chrome_height / 2,
-            theme.accent,
-        );
     }
 
     let _ = write!(
@@ -344,6 +333,27 @@ mod tests {
             escape_xml("<tag attr=\"x\"> & '"),
             "&lt;tag attr=&quot;x&quot;&gt; &amp; &apos;"
         );
+    }
+
+    #[test]
+    fn macos_header_keeps_controls_without_header_text() {
+        let theme = theme::resolve("monochrome", &BTreeMap::new()).unwrap();
+        let svg = build_svg(
+            900,
+            300,
+            804,
+            204,
+            &["hello".to_owned()],
+            &theme,
+            &options(),
+        );
+
+        assert!(!svg.contains(">Terminal</text>"));
+        assert!(!svg.contains(">PRISM</text>"));
+        assert!(svg.contains("#ff5f57"));
+        assert!(svg.contains("#febc2e"));
+        assert!(svg.contains("#28c840"));
+        assert!(svg.contains("<path d=\"M"));
     }
 
     #[test]

@@ -226,13 +226,13 @@ fn built_in(id: &str) -> Option<Theme> {
     let theme = match id {
         "monochrome" => Theme {
             name: "Monochrome".to_owned(),
-            background: "#171719".to_owned(),
-            background_end: "#222225".to_owned(),
-            surface: "#1d1d20".to_owned(),
-            foreground: "#e8e8ea".to_owned(),
-            muted: "#a0a0a6".to_owned(),
-            accent: "#c4c4ca".to_owned(),
-            border: "#38383e".to_owned(),
+            background: "#171717".to_owned(),
+            background_end: "#222222".to_owned(),
+            surface: "#1d1d1d".to_owned(),
+            foreground: "#e8e8e8".to_owned(),
+            muted: "#a0a0a0".to_owned(),
+            accent: "#c4c4c4".to_owned(),
+            border: "#383838".to_owned(),
         },
         "github-dark" => Theme {
             name: "GitHub Dark".to_owned(),
