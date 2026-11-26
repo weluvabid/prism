@@ -2,7 +2,7 @@
 
 Prism turns terminal text you explicitly provide into a polished, shareable PNG.
 
-The content is the input; the theme is the presentation. Prism removes source styling and terminal control sequences, normalizes text, and applies its own palette, typography, spacing, and window frame.
+The default presentation is monochrome: graphite surfaces, soft-white text, and restrained silver accents. Optional color palettes are available when you want them. The content is the input; the theme is the presentation. Prism removes source styling and terminal control sequences, normalizes text, and applies its own palette, typography, spacing, and window frame.
 
 **Prism never monitors your terminal or captures it in the background.** It only processes text supplied through stdin, a file, or the clipboard when you explicitly request it.
 
@@ -34,8 +34,9 @@ When no output path is supplied, Prism writes `prism.png`. When input is not pip
 
 ## Themes
 
-Six built-in palettes are included:
+Seven built-in palettes are included:
 
+- `monochrome` (default)
 - `github-dark`
 - `github-light`
 - `catppuccin-mocha`
@@ -47,7 +48,7 @@ Six built-in palettes are included:
 prism themes
 ```
 
-Theme colors are presentation-only. Original ANSI colors are intentionally discarded; the same normalized input renders consistently under every theme.
+Monochrome is Prism’s default visual identity; the other palettes remain opt-in. Theme colors are presentation-only. Original ANSI colors are intentionally discarded; the same normalized input renders consistently under every theme.
 
 ### Custom themes
 

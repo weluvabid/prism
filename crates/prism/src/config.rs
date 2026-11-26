@@ -41,7 +41,7 @@ pub struct Defaults {
 impl Default for Defaults {
     fn default() -> Self {
         Self {
-            theme: "github-dark".to_owned(),
+            theme: "monochrome".to_owned(),
             width: 1200,
             font_size: 16,
             padding: 30,
@@ -130,7 +130,7 @@ pub fn template() -> &'static str {
     r##"# Prism configuration. CLI flags override these defaults.
 
 [defaults]
-theme = "github-dark"
+theme = "monochrome"
 width = 1200
 font_size = 16
 padding = 30
@@ -141,7 +141,7 @@ wrap = true
 max_input_bytes = 8388608
 
 # Custom themes inherit one built-in palette, then override any fields.
-# Available bases: github-dark, github-light, catppuccin-mocha, nord, dracula, rose-pine.
+# Available bases: monochrome, github-dark, github-light, catppuccin-mocha, nord, dracula, rose-pine.
 # [themes.my-theme]
 # extends = "nord"
 # name = "My Theme"

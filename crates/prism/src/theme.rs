@@ -23,7 +23,12 @@ pub struct ThemeInfo {
     pub description: &'static str,
 }
 
-pub const BUILT_IN_THEMES: [ThemeInfo; 6] = [
+pub const BUILT_IN_THEMES: [ThemeInfo; 7] = [
+    ThemeInfo {
+        id: "monochrome",
+        label: "Monochrome",
+        description: "Quiet graphite, silver, and soft-white contrast",
+    },
     ThemeInfo {
         id: "github-dark",
         label: "GitHub Dark",
@@ -68,7 +73,7 @@ pub fn resolve(name: &str, configured: &BTreeMap<String, ThemeOverrides>) -> Res
         let base_id = normalize_id(base_id)?;
         let Some(base) = built_in(&base_id) else {
             bail!(
-                "custom theme `{requested}` must extend one of the six built-in themes; \
+                "custom theme `{requested}` must extend one of the built-in themes; \
                  `{base_id}` is not built in"
             );
         };
@@ -219,6 +224,16 @@ fn title_case(id: &str) -> String {
 
 fn built_in(id: &str) -> Option<Theme> {
     let theme = match id {
+        "monochrome" => Theme {
+            name: "Monochrome".to_owned(),
+            background: "#171719".to_owned(),
+            background_end: "#222225".to_owned(),
+            surface: "#1d1d20".to_owned(),
+            foreground: "#e8e8ea".to_owned(),
+            muted: "#a0a0a6".to_owned(),
+            accent: "#c4c4ca".to_owned(),
+            border: "#38383e".to_owned(),
+        },
         "github-dark" => Theme {
             name: "GitHub Dark".to_owned(),
             background: "#0b1020".to_owned(),
@@ -287,6 +302,29 @@ fn built_in(id: &str) -> Option<Theme> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn monochrome_palette_uses_neutral_colors() {
+        let theme = resolve("monochrome", &BTreeMap::new()).unwrap();
+        for color in [
+            theme.background,
+            theme.background_end,
+            theme.surface,
+            theme.foreground,
+            theme.muted,
+            theme.accent,
+            theme.border,
+        ] {
+            let rgb = color.trim_start_matches('#');
+            let channels = [
+                u8::from_str_radix(&rgb[0..2], 16).unwrap(),
+                u8::from_str_radix(&rgb[2..4], 16).unwrap(),
+                u8::from_str_radix(&rgb[4..6], 16).unwrap(),
+            ];
+            assert_eq!(channels[0], channels[1], "{color} is not neutral");
+            assert_eq!(channels[1], channels[2], "{color} is not neutral");
+        }
+    }
 
     #[test]
     fn all_built_in_palettes_are_valid() {
